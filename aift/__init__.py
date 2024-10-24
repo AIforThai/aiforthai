@@ -1,1 +1,1 @@
-from aift.nlp import tokenizer, sentiment
+from .nlp import tokenizer, sentiment
