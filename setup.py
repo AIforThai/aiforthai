@@ -23,16 +23,14 @@ def read_requirements():
 # This call to setup() does all the work
 setup(
     name="aift",  # package name
-    version="0.0.4",  # Incremented version number
+    version="0.1.2",  # Incremented version number
     author="c-tawayip",  # creator username
     author_email="piyawatchuangkrud@gmail.com",  # email creator
     description="A temp package",  # description
     long_description=README,
     long_description_content_type="text/markdown",
     url="https://github.com/AIforThai/aiforthai",
-    # license="MIT",
     classifiers=[
-        "License :: OSI Approved :: MIT License",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.8",
     ],
