@@ -1,7 +1,7 @@
 import requests
 from aift.setting.setting import get_api_key, PACKAGE_NAME
 
-def tag(text:str, pos:str=False, ner:str=True, sent:str=False, 
+def tag(text:str, pos:str=True, ner:str=False, sent:str=False, 
             sep:str='|', tag_sep:str='/', return_json:bool=True):
     api_key = get_api_key()
     headers = {'Apikey':api_key, 'X-lib':PACKAGE_NAME}
