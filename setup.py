@@ -23,7 +23,7 @@ def read_requirements():
 # This call to setup() does all the work
 setup(
     name="aift",  # package name
-    version="0.0.1",  # package version
+    version="0.0.2",  # package version
     author="c-tawayip",  # creator username
     author_email="chuangk.piyawat@gmail.com",  # email creator
     description="AI for Thai's Package",  # description
