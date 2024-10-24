@@ -1,4 +1,4 @@
-# aiforthai
+# AIFT an AI for Thai package
 # Installation
 
 ```bash
@@ -7,171 +7,290 @@ pip install git+https://github.com/AIforThai/aiforthai.git
 
 # How To Use
 
-```bash
+```python
 from aift import setting
 
 setting.set_api_key('YOUR_API_KEY')
 ```
-# Use case
-## NLP
-### Tokenizer
-```bash
-from aift.nlp import tokenizer
+# Use Case
+## Multimodal
+#### TextQA
+```python
+from aift.multimodal import textqa
 
-tokenizer.tokenize('สวัสดี AI')
+textqa.generate('ข้อความ')
 ```
-```bash
-tokenizer.tokenize('สวัสดี AI', return_json=True)
+#### AudioQA
+```python
+from aift.multimodal import audioqa
+
+audioqa.generate('audio.mp3', 'ถอดเสียงข้อความ')
 ```
-```bash
-tokenizer.tokenize('สวัสดี AI', engine='trexplusplus') # engine = lexto, trexplus, trexplusplus
+#### VQA
+```python
+from aift.multimodal import vqa
+
+vqa.generate('image.jpg', 'บรรยายรูปนี้')
 ```
-### Sentiment
-```bash
+
+## NLP
+### Alignment
+#### EN Alignment
+```python
+from aift.nlp.alignment import en_alignment
+
+en_alignment.analyze("en_text", 'th_text', return_json=True)
+```
+#### ZH Alignment
+```python
+from aift.nlp.alignment import zh_alignment
+
+zh_alignment.analyze("zh_text", 'th_text')
+```
+### Grapheme to Phoneme
+#### G2P
+```python
+from aift.nlp import g2p
+
+g2p.analyze('ข้อความ')
+```
+### longan
+#### Sentence Token
+```python
+from aift.nlp.longan import sentence_tokenizer
+
+sentence_tokenizer.tokenize('ข้อความ')
+```
+#### Tagger
+```python
+from aift.nlp.longan import tagger
+
+tagger.tag('ระบุ|ข้อความ|ใน|นี้')
+```
+#### Token Tagger
+```python
+from aift.nlp.longan import token_tagger
+
+token_tagger.tokenize_tag('ข้อความ')
+```
+#### Tokenizer
+```python
+from aift.nlp.longan import tokenizer
+
+tokenizer.tokenize('ข้อความ')
+```
+### Name Entity Recognition
+#### example
+```python
+from aift.nlp import ner
+
+ner.analyze('ข้อความ')
+```
+### Question Answering
+#### example
+```python
+from aift.nlp import qa
+
+qa.analyze('ข้อความ')
+```
+### Sentiment Analysis
+#### example
+```python
 from aift.nlp import sentiment
 
-sentiment.analyze('อาหารร้านนี้อร่อยมาก') # engine = ssense, emonews, thaimoji, cyberbully
+sentiment.analyze('ข้อความ') # engine = ssense, emonews, thaimoji, cyberbully
 ```
-```bash
-sentiment.analyze('อาหารร้านนี้อร่อยมาก', engine='emonews')
+```python
+sentiment.analyze('ข้อความ', engine='emonews')
 ```
-```bash
-sentiment.analyze('อาหารร้านนี้อร่อยมาก', engine='thaimoji')
+```python
+sentiment.analyze('ข้อความ', engine='thaimoji')
 ```
-```bash
-sentiment.analyze('อาหารร้านนี้อร่อยมาก', engine='cyberbully')
+```python
+sentiment.analyze('ข้อความ', engine='cyberbully')
 ```
-### Summarize
-```bash
+### Similarity
+#### example
+```python
+from aift.nlp import similarity
+
+similarity.similarity('ข้อความ') # engine = thaiwordsim, wordapprox
+```
+```python
+similarity.similarity('ข้อความ', engine='thaiwordsim', model='thwiki') # model = thwiki, twitter
+```
+```python
+similarity.similarity('ข้อความ', engine='wordapprox', model='food', return_json=True) # model = personname, royin, food
+```
+### Soundex
+#### example
+```python
+from aift.nlp import soundex
+
+soundex.analyze('ชื่อ') # model = personname, royin
+```
+### Tag Suggestion
+#### example
+```python
+from aift.nlp import tag
+
+tag.analyze('ข้อความ', numtag=5)
+```
+### Text Cleansing
+#### example
+```python
+from aift.nlp import text_cleansing
+
+text_cleansing.clean('ข้อความ')
+```
+### Text Summarization
+#### example
+```python
 from aift.nlp import text_sum
 
 text = """
-ข้าว เป็นเมล็ดของพืชหญ้า Oryza sativa (ชื่อสามัญ: ข้าวเอเชีย) ที่พบมากในทวีปเอเชีย ข้าวเป็นธัญพืชซึ่งประชากรโลกบริโภคเป็นอาหารสำคัญ 
-โดยเฉพาะอย่างยิ่งในทวีปเอเชีย จากข้อมูลเมื่อปี 2553 ข้าวเป็นธัญพืชซึ่งมีการปลูกมากที่สุดเป็นอันดับสามทั่วโลก รองจากข้าวสาลีและข้าวโพด 
-ข้าวเป็นธัญพืชสำคัญที่สุดในด้านโภชนาการและการได้รับแคลอรีของมนุษย์ เพราะข้าวโพดส่วนใหญ่ปลูกเพื่อจุดประสงค์อื่น มิใช่ให้มนุษย์บริโภค ทั้งนี้ 
-ข้าวคิดเป็นพลังงานกว่าหนึ่งในห้าที่มนุษย์ทั่วโลกบริโภค หลักฐานพันธุศาสตร์แสดงว่าข้าวมาจากการนำมาปลูกเมื่อราว 8,200–13,500 ปีก่อน ในภูมิภาคหุบแม่น้ำจูเจียงของจีน 
-ก่อนหน้านี้ หลักฐานโบราณคดีเสนอว่า ข้าวมีการนำมาปลูกในเขตหุบแม่น้ำแยงซีในจีน ข้าวแพร่กระจายจากเอเชียตะวันออกไปยังเอเชียตะวันออกเฉียงใต้และเอเชียใต้ 
-ข้าวถูกนำมายังทวีปยุโรปผ่านเอเชียตะวันตก และทวีปอเมริกาผ่านการยึดอาณานิคมของยุโรป[3] ปกติการปลูกข้าวเป็นแบบปีต่อปี ทว่าในเขตร้อน ข้าวสามารถมีชีวิตอยู่ได้หลายปีและสามารถไว้ตอ 
-(ratoon) ได้นานถึง 30 ปี ต้นข้าวสามารถโตได้ถึง 1–1.8 เมตร ขึ้นอยู่กับพันธุ์และความอุดมสมบูรณ์ของดินเป็นหลัก มีใบเรียว ยาว 50-100 เซนติเมตร และกว้าง 2-2.5 เซนติเมตร 
-ช่อดอกห้อยยาว 30-50 เซนติเมตร เมล็ดกินได้เป็นผลธัญพืชยาว 5-12 มิลลิเมตร และหนา 2-3 มิลลิเมตร 
-การเตรียมดินสำหรับเพาะปลูกข้าวเหมาะกับประเทศและภูมิภาคที่ค่าแรงต่ำและฝนตกมาก 
-เนื่องจากมันใช้แรงงานมากที่จะเตรียมดินและต้องการน้ำเพียงพอ อย่างไรก็ตาม ข้าวสามารถโตได้เกือบทุกที่ 
-แม้บนเนินชันหรือเขตภูเขาที่ใช้ระบบควบคุมน้ำแบบขั้นบันได แม้ว่าสปีชีส์บุพการีของมันเป็นสิ่งพื้นเมืองของเอเชียและส่วนที่แน่นอนของแอฟริกา 
-ร้อยปีของการค้าขายและการส่งออกทำให้มันสามัญในหลายวัฒนธรรมทั่วโลก วิธีแบบดั้งเดิมสำหรับเตรียมดินสำหรับข้าวคือทำให้น้ำท่วมแปลงชั่วขณะหนึ่งหรือหลังจากการตั้งของต้นกล้าอายุน้อย 
-วิธีเรียบง่ายนี้ต้องการการวางแผนที่แข็งแรงและการให้บริการของเขื่อนและร่องน้ำ แต่ลดพัฒนาการของเมล็ดที่ไม่ค่อยแข็งแรงและวัชพืชที่ไม่มีภาวะเติบโตขณะจมน้ำ และยับยั้งศัตรูพืช 
-ขณะที่การทำให้น้ำท่วมไม่จำเป็นสำหรับการเตรียมดินสำหรับเพาะปลูกข้าว 
-วิธีทั้งหมดในการชลประทานต้องการความพยายามสูงกว่าในการควบคุมวัชพืชและศัตรูพืชระหว่างช่วงเวลาการเจริญเติบโตและวิธีที่แตกต่างสำหรับใส่ปุ๋ยลงดิน
+long text
 """
 
 text_sum.summarize(text)
 ```
-### Similarity
-```bash
-from aift.nlp import similarity
+### Tokenizer
+#### example
+```python
+from aift.nlp import tokenizer
 
-similarity.similarity('ต้มยำกุ้ง') # engine = thaiwordsim, wordapprox
+tokenizer.tokenize('ข้อความ')
 ```
-```bash
-similarity.similarity('ต้มยำกุ้ง', engine='thaiwordsim', model='thwiki') # model = thwiki, twitter
+```python
+tokenizer.tokenize('ข้อความ', return_json=True)
 ```
-```bash
-similarity.similarity('ต้มยำกุง', engine='wordapprox', model='food', return_json=True) # model = personname, royin, food
-```
-### Soundex
-```bash
-from aift.nlp import soundex
-
-soundex.analyze('สมใจ') # model = personname, royin
-```
-### Grapheme to Phoneme
-```bash
-from aift.nlp import g2p
-
-g2p.analyze('พนักงานโรงแรม XYZ ให้บริการต้อนรับดีมากกก')
-```
-### NER
-```bash
-from aift.nlp import ner
-
-ner.analyze('งานประชุมวิชาการ สวทช. จัดขึ้นในวันที่ 25 มี.ค. พ.ศ. 2562 ณ อุทยานวิทยาศาสตร์ประเทศไทย')
-```
-### Question Answering
-```bash
-from aift.nlp import qa
-
-qa.analyze("ยื่นประมูลรายเดียวทำไง", return_json=True)
-```
-### Tag Suggestion
-```bash
-from aift.nlp import tag
-
-tag.analyze('ข้าวและแป้งมีสารอาหารหลักคือคาร์โบไฮเดรต', numtag=5)
-```
-### Text Cleansing
-```bash
-from aift.nlp import text_cleansing
-
-text_cleansing.clean('เเพง')
+```python
+tokenizer.tokenize('ข้อความ', engine='trexplusplus') # engine = lexto, trexplus, trexplusplus
 ```
 ### Translation
-```bash
-from aift.nlp import translation
+#### EN-TH
+```python
+from aift.nlp.translation import en2th
 
-translation.translate('สวัสดี', src='th', to='zh')
+en2th.translate("en_text")
 ```
-```bash
-translation.translate('你好', src='zh', to='th')
-```
-## Speech
-### Text to Speech
-```bash
-from aift.speech import tts
+#### TH-EN
+```python
+from aift.nlp.translation import th2en
 
-tts.convert('สวัสดีครับ', 'test.wav')
+th2en.translate("ข้อความ")
 ```
-### Speech to Text
-```bash
-from aift.speech import stt
-
-stt.convert('test.wav', return_json=True)
+#### ZH-TH, TH-ZH
+```python
+zh_translate.translate('ข้อความ', src='th', to='zh', return_json=True)
 ```
-## Image
-### Car Logo
-```bash
-from aift.image import carlogo
+```python
+zh_translate.translate('zh_text', src='zh', to='th', return_json=True)
+```
 
-carlogo.analyze('image.png',  return_json=True)
+## IMAGE
+### Classification
+#### Chest X-Ray Classification
+```python
+from aift.image.classification import chest_classification
+
+chest_classification.analyze('image.jpg', return_json=True)
+```
+#### Mask Detection
+```python
+from aift.image.classification import maskdetection
+
+maskdetection.analyze('image.jpg')
+```
+#### NSFW
+```python
+from aift.image.classification import nsfw
+
+nsfw.analyze('image.jpg')
+```
+#### Violence Classification
+```python
+from aift.image.classification import violence_classification
+
+violence_classification.analyze('image.jpg')
+```
+
+### Correlator
+#### Correlator
+```python
+from aift.image.correlator import correlator
+
+correlator.analyze('image.jpg', arr='คน', num=1)
+```
+### Detection
+#### Carlogo
+```python
+from aift.image.detection import carlogo
+
+carlogo.analyze('image.jpg',  return_json=True)
+```
+#### Face Blur
+```python
+from aift.image.detection import face_blur
+
+face_blur.analyze('image.jpg')
+```
+#### Face Detection
+```python
+from aift.image.detection import face_detection
+
+face_detection.analyze('image.jpg', return_json=True)
+```
+#### Handwritten
+```python
+from aift.image.detection import handwritten
+
+handwritten.analyze('image.jpg')
+```
+#### Thai License Plate Recognition
+```python
+from aift.image.detection import lpr
+
+lpr.analyze('image.jpg', crop=0, rotate=1)
+```
+#### Weapon Detection
+```python
+from aift.image.detection import weapon_detection
+
+weapon_detection.analyze('image.jpg')
+```
+### Dicom to Image
+#### Dicom2image
+```python
+from aift.image.dicom2image import dicom2image
+
+dicom2image.analyze('image.dcm')
+```
+### Super Resolution
+#### Super Resolution
+```python
+from aift.image import super_resolution
+
+super_resolution.analyze('image.jpg')
 ```
 ### Thai Food
-```bash
+#### Thai Food
+```python
 from aift.image import thaifood
 
-thaifood.analyze('image.png')
+thaifood.analyze('image.jpg')
 ```
-### Thai License Plate Recognition
-```bash
-from aift.image import lpr
 
-lpr.analyze('image.png', crop=0, rotate=1)
-```
-### Hand Written
-```bash
-from aift.image import handwritten
+## SPEECH
+#### Text to Speech
+```python
+from aift.speech import tts
 
-handwritten.analyze('image.png')
+tts.convert('สวัสดีครับ', 'file.wav')
 ```
-### NSFW
-```bash
-from aift.image import nsfw
+#### Speech to Text
+```python
+from aift.speech import stt
 
-nsfw.analyze('image.png')
-```
-### Face Detection
-```bash
-from aift.image import detection
-
-detection.analyze('image.png') # engine = face, facemask
-```
-```bash
-detection.analyze('image.png', engine='facemask')
+stt.convert('file.wav', return_json=True)
 ```
