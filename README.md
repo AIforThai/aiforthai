@@ -1,6 +1,7 @@
-# AIFT an AI for Thai package
+# AIFT an AI for Thai Python Package.
 
-#### Contributor: Piyawat Chuangkrud
+#### Contributor: 
+Piyawat Chuangkrud
 # Installation
 
 ```bash

@@ -4,7 +4,7 @@ from aift.setting.setting import get_api_key, PACKAGE_NAME
 
 def generate(instruction:str, 
     system_prompt:str="You are Pathumma LLM, created by NECTEC. Your are a helpful assistant.", 
-    max_new_tokens:int=256,
+    max_new_tokens:int=512,
     temperature:float=0.4,
     return_json:bool=True):
 

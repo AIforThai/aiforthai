@@ -1,6 +1,11 @@
 # PATHUMMA LLM
 Pathumma LLM is a friendly and an easy to use multimodals python lib. Simply call the `generate` function with the relevant input, such as a prompt or a related audio or image file.
 
+#### Contributor: 
+Piyawat Chuangkrud
+#### Writer: 
+Chaianun Damrongrat
+
 ## INSTALLATION
 ```sh
 pip install aift
@@ -13,7 +18,7 @@ The `generate` function has the following parameters:
 
 * **instruction** (str: `required`): The prompt text for the model.
 * **system_prompt** (str): The system prompt to define the model's behavior.
-* **max_new_tokens** (int): The maximum number of tokens to generate (default=256).
+* **max_new_tokens** (int): The maximum number of tokens to generate (default=512).
 * **temperature** (float): Controls the randomness of the generated text (default=0.4).
 * **return_json** (bool): Determines the response format. If True, the response is in JSON format; otherwise, it's in plain text (default=True).
 
