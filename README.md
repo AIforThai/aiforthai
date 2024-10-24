@@ -1,8 +1,10 @@
 # AIFT an AI for Thai package
+
+#### Contributor: Piyawat Chuangkrud
 # Installation
 
 ```bash
-pip install git+https://github.com/AIforThai/aiforthai.git
+pip install aift
 ```
 
 # How To Use
