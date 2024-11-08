@@ -4,7 +4,7 @@ from aift.setting.setting import get_api_key, PACKAGE_NAME
 def analyze(file:str, return_json:bool=True):
     api_key = get_api_key()
     headers = {'Apikey':api_key, 'X-lib':PACKAGE_NAME}
-    url = "https://api.aiforthai.in.th/sr/sr"
+    url = "https://api.aiforthai.in.th/superresolution/sr"
     payload={}
     files=[('file',(file,open(file,'rb'), 'image/jpeg'))]
     

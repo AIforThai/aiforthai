@@ -24,3 +24,25 @@ def generate(instruction:str,
         return res.json()['content']
     else:
         return res.json()
+
+def chat(instruction:str, 
+    sessionid:str,
+    context:str="", 
+    temperature:float=0.4,
+    return_json:bool=True):
+
+    api_key = get_api_key()
+    headers = {'accept': 'application/json', 'Apikey':api_key, 'X-lib':PACKAGE_NAME}
+    url = 'https://api.aiforthai.in.th/pathumma-chat'
+    payload = {
+        'context': context,
+        'prompt' : instruction,
+        'sessionid' : sessionid,
+        'temperature': temperature,
+    }
+
+    res = requests.post(url, headers=headers, data=payload)
+    if return_json == False:
+        return res.json()['response']
+    else:
+        return res.json()
