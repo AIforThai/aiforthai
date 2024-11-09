@@ -185,10 +185,13 @@ th2en.translate("ข้อความ")
 ```
 #### ZH-TH, TH-ZH
 ```python
-zh_translate.translate('ข้อความ', src='th', to='zh', return_json=True)
+from aift.nlp.translate import th2zh
+th2zh.translate('ข้อความ', return_json=True)
 ```
+
 ```python
-zh_translate.translate('zh_text', src='zh', to='th', return_json=True)
+from aift.nlp.translate import zh2th
+zh2th.translate('你的微笑真好看。', return_json=True)
 ```
 
 ## IMAGE
