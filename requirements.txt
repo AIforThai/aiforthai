@@ -1,3 +1,4 @@
 requests
 pydub
 pythainlp
+python-crfsuite
