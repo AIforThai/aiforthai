@@ -4,6 +4,8 @@ Pathumma LLM is a friendly and an easy to use multimodals python lib. Simply cal
 #### Contributor: 
 Piyawat Chuangkrud
 
+#### Writer: 
+Anonymous Writer y3r
 ## INSTALLATION
 ```sh
 pip install aift
