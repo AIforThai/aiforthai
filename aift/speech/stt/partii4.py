@@ -1,7 +1,7 @@
 import requests
 from aift.setting.setting import get_api_key, PACKAGE_NAME
 
-def stt(path:str, outputlevel:str='--uttlevel', outputformat:str='--txt', return_json:bool=True):
+def transcribe(path:str, outputlevel:str='--uttlevel', outputformat:str='--txt', return_json:bool=True):
     api_key = get_api_key()
     url = "https://api.aiforthai.in.th/partii-webapi"
     

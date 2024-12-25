@@ -296,7 +296,9 @@ tts('สวัสดีครับ', 'file.wav')
 ```
 #### Speech to Text
 ```python
-from aift.speech import stt
+from aift.speech.stt import partii4, partii5
 
-stt('file.wav', return_json=True)
+partii4.transcribe('file.wav', return_json=True)
+
+partii5.transcribe('file.wav', return_json=True)
 ```
