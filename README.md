@@ -292,7 +292,7 @@ thaifood.analyze('image.jpg')
 ```python
 from aift.speech import tts
 
-tts('สวัสดีครับ', 'file.wav')
+tts.tts('สวัสดีครับ', 'file.wav')
 ```
 #### Speech to Text
 ```python

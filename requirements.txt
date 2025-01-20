@@ -1,4 +1,3 @@
-requests
-pydub
-pythainlp
-python-crfsuite
+requests==2.32.3
+pythainlp==5.0.5
+python-crfsuite==0.9.11
