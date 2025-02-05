@@ -1,11 +1,11 @@
 import requests
 import time
+import wave
 from aift.setting.setting import get_api_key, PACKAGE_NAME
-import sys 
+import sys
 import time
 import os
 import requests
-from pydub import AudioSegment
 from pythainlp import sent_tokenize
 from pythainlp.corpus.common import thai_words
 from pythainlp.util import Trie
@@ -19,7 +19,7 @@ def tts(text:str, path:str, speaker:int=0, phrase_break:int=0, audiovisual:int=0
     if len(text) <= 300:
         data['input_text'] = text
         time.sleep(1)
-        response = requests.post(url, json=data, headers=headers)     
+        response = requests.post(url, json=data, headers=headers)
         time.sleep(2)
         resp = requests.get(response.json()['wav_url'], headers=headers)
         if resp.status_code == 200:
@@ -35,13 +35,13 @@ def tts(text:str, path:str, speaker:int=0, phrase_break:int=0, audiovisual:int=0
             os.remove(path)
         sents = sent_tokenize(text.replace('\n', ' '))
         process_sents = []
-        
+
         for line in sents:
             if len(line) <= 300:
                 process_sents.append(line)
             else:
                 process_sents += split_line(line)
-                
+
         for line in process_sents:
             call_vaja(line.strip(), url, headers, data)
             join_wav(path)
@@ -57,7 +57,7 @@ def call_vaja(text, url, headers, data):
         status_code = response.status_code
 
     time.sleep(2)
-    status_code = 0 
+    status_code = 0
     while (status_code != 200):
         resp = requests.get(response.json()['wav_url'], headers=headers)
         status_code=resp.status_code
@@ -71,8 +71,8 @@ def join_wav(path):
     if not os.path.isfile(path):
         os.rename('./tts_file_for_merge.wav',path)
     else:
-        sound1 = AudioSegment.from_wav(path)
-        sound2 = AudioSegment.from_wav("./tts_file_for_merge.wav")
+        sound1 = wave.open(path)
+        sound2 = wave.open("./tts_file_for_merge.wav")
 
         combined_sounds = sound1 + sound2
         combined_sounds.export(path, format="wav")
@@ -88,5 +88,5 @@ def split_line(text, max_char=300):
             process_sents.append(text[e:])
     s += max_char
     e += max_char
-    
+
     return process_sents
