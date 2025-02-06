@@ -2,7 +2,10 @@
 
 #### Contributor: 
 Piyawat Chuangkrud
+
+
 # Installation
+### aift version 1.3.2
 
 ```bash
 pip install aift
@@ -292,7 +295,7 @@ thaifood.analyze('image.jpg')
 ```python
 from aift.speech import tts
 
-tts.tts('สวัสดีครับ', 'file.wav')
+tts.convert('สวัสดีครับ', 'file.wav', speaker=0) # speaker 0 = male, 1 = female
 ```
 #### Speech to Text
 ```python

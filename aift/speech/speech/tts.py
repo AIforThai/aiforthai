@@ -10,7 +10,7 @@ from pythainlp import sent_tokenize
 from pythainlp.corpus.common import thai_words
 from pythainlp.util import Trie
 
-def tts(text:str, path:str, speaker:int=0, phrase_break:int=0, audiovisual:int=0):
+def convert(text:str, path:str, speaker:int=0, phrase_break:int=0, audiovisual:int=0):
     api_key = get_api_key()
     headers = {'Apikey':api_key, 'X-lib':PACKAGE_NAME}
     url = 'https://api.aiforthai.in.th/vaja9/synth_audiovisual'
@@ -69,24 +69,27 @@ def call_vaja(text, url, headers, data):
 
 def join_wav(path):
     if not os.path.isfile(path):
-        os.rename('./tts_file_for_merge.wav',path)
+        os.rename('./tts_file_for_merge.wav', path)
     else:
-        sound1 = wave.open(path)
-        sound2 = wave.open("./tts_file_for_merge.wav")
+        with wave.open(path, 'rb') as sound1, wave.open("./tts_file_for_merge.wav", 'rb') as sound2:
 
-        combined_sounds = sound1 + sound2
-        combined_sounds.export(path, format="wav")
+            # Read frames
+            frames1 = sound1.readframes(sound1.getnframes())
+            frames2 = sound2.readframes(sound2.getnframes())
+
+        # Write the combined frames back to the original file
+        with wave.open(path, 'wb') as output:
+            output.setparams(sound1.getparams()) 
+            output.writeframes(frames1 + frames2)  # Concatenate audio frames
+
+        # Remove the temporary file
         os.remove('./tts_file_for_merge.wav')
 
 def split_line(text, max_char=300):
     process_sents = []
     s = 0
-    e = max_char
-    for i in range((len(text)//max_char)+1):
-        process_sents.append(text[s:e])
-        if i+1 == (len(text)//max_char)+1:
-            process_sents.append(text[e:])
-    s += max_char
-    e += max_char
+    while s < len(text):
+        process_sents.append(text[s:s+max_char])
+        s += max_char
 
     return process_sents
